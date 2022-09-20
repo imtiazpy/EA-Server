@@ -1,0 +1,11 @@
+django
+djangorestframework
+djangorestframework-simplejwt
+djoser
+psycopg2
+psycopg2-binary
+pillow
+django-cors-headers
+drf-yasg
+coreapi
+
