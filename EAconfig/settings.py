@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
 LOCAL_APPS = [
     'users',
+    'employers',
 ]
 
 THIRD_PARTY_APPS = [

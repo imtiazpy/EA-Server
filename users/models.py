@@ -35,8 +35,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     """
 
     class Types(models.TextChoices):
-        DOCTOR = "DOCTOR", "Doctor"
-        PATIENT = "PATIENT", "Patient"
+        EMPLOYER = "EMPLOYER", "Employer"
+        JOB_SEEKER = "JOB_SEEKER", "Job_Seeker"
 
     #Type of user
     type = models.CharField(_("Type"), max_length=50, choices=Types.choices, null=True, blank=False)
