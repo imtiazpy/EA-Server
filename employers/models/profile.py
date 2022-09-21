@@ -40,6 +40,7 @@ class EmployerProfile(models.Model):
         blank=True,
         null=True
     )
+    company_name = models.CharField(_("Company Name"), max_length=100, blank=True, null=True)
     company_size = models.CharField(
         _("Company Size"),
         max_length=50,
@@ -47,6 +48,11 @@ class EmployerProfile(models.Model):
         blank=True,
         null=True
     )
+    description = models.TextField(_("Description"), max_length=255, blank=True, null=True)
     revenue = models.IntegerField(_("Revenue"), blank=True, null=True)
     year_of_form = models.CharField(_("Year Of Form"), max_length=4, blank=True, null=True)
+
+
+    def __str__(self):
+        return f'{self.id}-{self.company_name}'
 
