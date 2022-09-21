@@ -1,0 +1,10 @@
+from django.db import models
+
+class Gender(models.IntegerChoices):
+    """Gender choices for job seekers"""
+    MAlE = 1, 'Male'
+    FEMALE = 2, 'Female'
+    OTHER = 3, 'Other'
+
+class JobSeekersProfile(models.Model):
+    pass
