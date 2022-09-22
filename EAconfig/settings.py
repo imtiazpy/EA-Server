@@ -176,7 +176,6 @@ DJOSER = {
     'SEND_CONFIRMATION_EMAIL': True,
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_URL': 'api/v1/users/password/reset/confirm/{uid}/{token}',
-    # using email as username reset url bcoz we are using email as username
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}', 
     'ACTIVATION_URL': 'api/v1/users/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
@@ -190,9 +189,11 @@ DJOSER = {
 MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'ahmedimtiaz561@gmail.com' #Todo: use environment variable for host.
-# EMAIL_HOST_PASSWORD = 'efpvzkaiidgoupyh' #Todo: use environment variable for password
+EMAIL_HOST_USER = 'ahmedimtiaz561@gmail.com' #Todo: use environment variable for host.
+EMAIL_HOST_PASSWORD = 'dggnenwcuvnchpcn' #Todo: use environment variable for password
 EMAIL_USE_TLS = True
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
