@@ -3,6 +3,10 @@ EAconfig URL Configuration
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.permissions import IsAuthenticated
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
 
 # Admin placeholder change
@@ -18,4 +22,21 @@ urlpatterns = [
         path('employers/', include('employers.api.urls', namespace='employers')),
         path('job-seekers/', include('jobseekers.api.urls', namespace='job-seekers')),
     ])),
+]
+
+
+API_INFO = openapi.Info(
+    title = "Employee Assessment API",
+    default_version = "v1",
+    description = "API documentation for Employee Assessment App"
+)
+
+API_DOCS_SCHEMA_VIEWS = get_schema_view(
+    API_INFO,
+    public = True,
+    permission_classes = (IsAuthenticated, ),
+)
+
+urlpatterns += [
+    path("api-docs/", API_DOCS_SCHEMA_VIEWS.with_ui("swagger", cache_timeout=0), name="api_playground")
 ]
