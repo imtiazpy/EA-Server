@@ -19,7 +19,7 @@ class JobSeekersProfile(models.Model):
         related_name='job_seeker_profile'
     )
     summary = models.TextField(_("Summary"), max_length=255, blank=True, null=True)
-    gender = models.IntegerField(_("Gender"), blank=True, null=True)
+    gender = models.IntegerField(_("Gender"), choices=Gender.choices, blank=True, null=True)
     date_of_birth = models.DateField(null=True, blank=False)
     city = models.CharField(_('City'), max_length=255, null=True, blank=True)
     country = models.CharField(_('Country'), max_length=255, null=True, blank=True)

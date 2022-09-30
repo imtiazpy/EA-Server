@@ -21,6 +21,7 @@ urlpatterns = [
         path('auth/', include('djoser.urls.jwt')),
         path('employers/', include('employers.api.urls', namespace='employers')),
         path('job-seekers/', include('jobseekers.api.urls', namespace='job-seekers')),
+        path('assessment/', include('assessment.api.urls', namespace='assessment')),
     ])),
 ]
 

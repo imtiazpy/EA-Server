@@ -3,17 +3,19 @@ from django.contrib import admin
 from .models import (
     Assessment,
     QuestionTopic,
-    Question,
-    QuestionSet,
-    ChoiceSet,
-    Choice
+    MCQuestion,
+    Choice,
+    TrueFalseQuestion,
+    ShortAnswerQuestion,
+    Answer
 )
+
 
 admin.site.register(Assessment)
 admin.site.register(QuestionTopic)
-admin.site.register(Question)
-admin.site.register(QuestionSet)
-admin.site.register(ChoiceSet)
+admin.site.register(MCQuestion)
 admin.site.register(Choice)
-
+admin.site.register(TrueFalseQuestion)
+admin.site.register(ShortAnswerQuestion)
+admin.site.register(Answer)
 
