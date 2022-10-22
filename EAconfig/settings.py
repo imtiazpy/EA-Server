@@ -53,6 +53,10 @@ LOCAL_APPS = [
     'employers',
     'jobseekers',
     'assessment',
+    'mcq',
+    'shortanswer',
+    'truefalse',
+    'job',
 ]
 
 THIRD_PARTY_APPS = [

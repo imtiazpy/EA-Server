@@ -22,6 +22,7 @@ urlpatterns = [
         path('employers/', include('employers.api.urls', namespace='employers')),
         path('job-seekers/', include('jobseekers.api.urls', namespace='job-seekers')),
         path('assessment/', include('assessment.api.urls', namespace='assessment')),
+        path('mcq/', include('mcq.api.urls', namespace='mcq')),
     ])),
 ]
 

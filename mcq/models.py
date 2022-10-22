@@ -65,3 +65,4 @@ class Choice(models.Model):
     class Meta:
         verbose_name = _("Choice")
         verbose_name_plural = _("Choices")
+

@@ -7,9 +7,9 @@ User = get_user_model()
 class AssessmentTypes(models.TextChoices):
     """Types choices for Assessment"""
 
-    MCQ = "MCQ", "mcq"
-    SHORT_ANSWER = "SHORT_ANSWER", "short_answer"
-    TRUE_FALSE = "TRUE_FALSE", "true_false"
+    MCQ = "MCQ", "MCQ"
+    SHORT_ANSWER = "SHORT_ANSWER", "Short Answer"
+    TRUE_FALSE = "TRUE_FALSE", "True False"
     
 class Assessment(models.Model):
     """Model definition for the Assessment"""

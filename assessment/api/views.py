@@ -5,8 +5,11 @@ from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
-from .serializers import AssessmentListSerializer, AssessmentSerializer
-from ..models import Assessment
+from assessment.api.serializers import (
+    AssessmentListSerializer, 
+    AssessmentSerializer,
+)
+from assessment.models import Assessment
 
 User = get_user_model()
 

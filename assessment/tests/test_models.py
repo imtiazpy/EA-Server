@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.shortcuts import get_object_or_404
 
-from ..models import (
+from ..modelsTemp import (
     Assessment, 
     MCQuestion, 
     Choice,

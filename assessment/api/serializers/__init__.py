@@ -1,1 +1,0 @@
-from .assessments import AssessmentSerializer, AssessmentListSerializer

@@ -14,8 +14,9 @@ class AssessmentListSerializer(ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ('id', 'title', 'duration', 'created_by', )
+        fields = ('id', 'title', 'duration', 'questions', 'created_by', )
         read_only_fields = ('id', )
+    
 
 class AssessmentSerializer(ModelSerializer):
     """Serializer for Assessment Create, Detail, update view"""
@@ -30,5 +31,5 @@ class AssessmentSerializer(ModelSerializer):
         created_by = User.objects.get(id=value.id)
 
         if created_by != self.context['request'].user:
-            raise serializers.ValidationError("Creator mismatch")
+            raise serializers.ValidationError("You do not have permission to crete assessment for this user")
         return value 
