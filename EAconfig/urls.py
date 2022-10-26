@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/v1/', include([
         path('auth/', include('djoser.urls')),
         path('auth/', include('djoser.urls.jwt')),
+        path('users/', include('users.api.urls', namespace='users')),
         path('employers/', include('employers.api.urls', namespace='employers')),
         path('job-seekers/', include('jobseekers.api.urls', namespace='job-seekers')),
         path('assessment/', include('assessment.api.urls', namespace='assessment')),
