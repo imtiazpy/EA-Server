@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.generics import (
     ListCreateAPIView,
+    ListAPIView,
     RetrieveUpdateDestroyAPIView,
 )
 from assessment.api.serializers import (
@@ -12,6 +13,18 @@ from assessment.api.serializers import (
 from assessment.models import Assessment
 
 User = get_user_model()
+
+
+
+class AssessmentPublicListAPIView(ListAPIView):
+    """Listing Public Assessments"""
+    
+    serializer_class = AssessmentListSerializer
+
+    def get_queryset(self):
+        if self.request.user.type == 'JOB_SEEKER':
+            return Assessment.objects.filter(is_public=True)
+    
 
 class AssessmentListCreateAPIView(ListCreateAPIView):
     """View for listing and creating the Assessment"""

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
@@ -28,6 +29,8 @@ class Assessment(models.Model):
         help_text=_("Title of your Assessment")
     )
     duration = models.DurationField(_("Duration"), null=True, blank=True)
+    # for the admin
+    is_public = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assessments')
 

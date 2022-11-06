@@ -14,7 +14,7 @@ class AssessmentListSerializer(ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ('id', 'title', 'duration', 'created_by', )
+        fields = ('id', 'title', 'type', 'duration', 'created_by', )
         read_only_fields = ('id', )
     
 
