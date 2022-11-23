@@ -29,5 +29,5 @@ class MultipleChoiceQuestionSerializer(ModelSerializer):
         user = self.context['request'].user
 
         if assessment.created_by != user:
-            raise serializers.ValidationError("You do not have permission to create question fro this assessment")
+            raise serializers.ValidationError("You do not have permission to create question for this assessment")
         return value 

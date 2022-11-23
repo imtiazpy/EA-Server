@@ -9,8 +9,9 @@ from rest_framework.generics import (
 from assessment.api.serializers import (
     AssessmentListSerializer, 
     AssessmentSerializer,
+    ResultSerializer
 )
-from assessment.models import Assessment
+from assessment.models import Assessment, Result
 
 User = get_user_model()
 
@@ -49,3 +50,13 @@ class AssessmentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Assessment.objects.filter(created_by=self.request.user)
+
+
+
+class ResultListCreateAPIView(ListCreateAPIView):
+    """View for Listing and creating Results"""
+    
+    serializer_class = ResultSerializer
+
+    def get_queryset(self):
+        return Result.objects.filter(job_seeker=self.request.user)

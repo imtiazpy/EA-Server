@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer
 from django.contrib.auth import get_user_model
 
 
-from assessment.models import Assessment
+from assessment.models import Assessment, Result
 
 
 User = get_user_model()
@@ -32,4 +32,32 @@ class AssessmentSerializer(ModelSerializer):
 
         if created_by != self.context['request'].user:
             raise serializers.ValidationError("You do not have permission to crete assessment for this user")
+        return value 
+
+
+class ResultSerializer(ModelSerializer):
+    """Serializer to list, create Result"""
+
+    class Meta:
+        model = Result
+        fields = ('id', 'job_seeker', 'assessment', 'marks', 'date' )
+        read_only_fields = ('id', )
+
+    def validate_job_seeker(self, value):
+        """validating appropriate job_seeker"""
+
+        job_seeker = User.objects.get(id=value.id)
+
+        if job_seeker != self.context['request'].user:
+            raise serializers.ValidationError("Invalid Job Seeker")
+        return value
+
+    def validate_assessment(self, value):
+        """Validating the assessment whether its current users or not"""
+
+        assessment = Assessment.objects.get(id=value.id)
+        user = self.context['request'].user
+
+        if assessment.created_by != user:
+            raise serializers.ValidationError("You do not have permission to create result for this assessment")
         return value 
