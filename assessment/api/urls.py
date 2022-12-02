@@ -1,7 +1,9 @@
 from django.urls import path
 from .views import (
-    AssessmentListCreateAPIView, 
+    # AssessmentListCreateAPIView, 
     AssessmentPublicListAPIView,
+    AssessmentCreateAPIView,
+    AssessmentListAPIView,
     AssessmentRetrieveUpdateDestroyAPIView,
     ResultListCreateAPIView
 )
@@ -9,8 +11,9 @@ from .views import (
 app_name = 'assessment'
 
 urlpatterns = [
-    path('public-assessments/', AssessmentPublicListAPIView.as_view(), name='public-assessments'),
-    path('assessments/', AssessmentListCreateAPIView.as_view(), name='assessments'),
-    path('assessment/<int:id>/', AssessmentRetrieveUpdateDestroyAPIView.as_view(), name='assessment'),
+    path('', AssessmentCreateAPIView.as_view(), name='create-assessment'),
+    path('public/', AssessmentPublicListAPIView.as_view(), name='public-assessments'),
+    path('assessments/', AssessmentListAPIView.as_view(), name='assessments'),
+    path('<int:id>/', AssessmentRetrieveUpdateDestroyAPIView.as_view(), name='update-assessment'),
     path('results/', ResultListCreateAPIView.as_view(), name='results'),
 ]
