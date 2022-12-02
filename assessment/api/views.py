@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-from rest_framework.response import Response
 from rest_framework.generics import (
     ListCreateAPIView,
     ListAPIView,
+    CreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
 from assessment.api.serializers import (
@@ -11,6 +10,7 @@ from assessment.api.serializers import (
     AssessmentSerializer,
     ResultSerializer
 )
+from assessment.api.custom_permissions import AssessmentWritePermission
 from assessment.models import Assessment, Result
 
 User = get_user_model()
@@ -25,25 +25,31 @@ class AssessmentPublicListAPIView(ListAPIView):
     def get_queryset(self):
         if self.request.user.type == 'JOB_SEEKER':
             return Assessment.objects.filter(is_public=True)
+
+class AssessmentCreateAPIView(CreateAPIView):
+    """
+    View for Creating Assessment. Only The Employer can create Assessment.
+    """
+
+    # The permission class checks whether the user is of type EMPLOYER or not
+    permission_classes = [AssessmentWritePermission]
+
+    # Assessment__created_by field is being validated in the serializer
+    queryset = Assessment.objects.all()
+    serializer_class = AssessmentSerializer
+
+class AssessmentListAPIView(ListAPIView):
+    """
+    View for listing Assessment in the Employer dashboard
+    """
+    serializer_class = AssessmentListSerializer
     
-
-class AssessmentListCreateAPIView(ListCreateAPIView):
-    """View for listing and creating the Assessment"""
-
     def get_queryset(self):
-        return Assessment.objects.filter(created_by=self.request.user.id)
-
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return AssessmentSerializer
-        return AssessmentListSerializer
-    
-    def perform_create(self, serializer):
-        serializer.save()
+        return Assessment.objects.filter(created_by=self.request.user)
 
 
 class AssessmentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    """Assessment Retrieve, Update and Destroy"""
+    """Assessment Retrieve, Update and Destroy view for the Employer"""
 
     serializer_class = AssessmentSerializer
     lookup_field = 'id'
