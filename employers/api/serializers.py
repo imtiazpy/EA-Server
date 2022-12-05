@@ -8,7 +8,7 @@ from employers.models import EmployerProfile
 User = get_user_model()
 
 
-from employers.models import EmployerProfile
+from employers.models import EmployerProfile, InvitedCandidate
 
 class EmployerProfileSerializer(serializers.ModelSerializer):
     """This serializer is used in EmployerUserSerializer"""
@@ -41,7 +41,6 @@ class EmployerUserSerializer(serializers.ModelSerializer):
     @transaction.atomic
     def update(self, instance, validated_data):
         """For updating User and Profile info"""
-        print("=================", validated_data)
         ModelClass = self.Meta.model
         employer_profile = validated_data.pop('employer_profile', {})
         # saving the User info. EmployerProfile info extracted with pop
@@ -52,3 +51,12 @@ class EmployerUserSerializer(serializers.ModelSerializer):
 
         new_instance = get_object_or_404(ModelClass, id=instance.id)
         return new_instance
+
+    
+
+class InvitedCandidateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvitedCandidate
+        fields = ('id', 'employer', 'job_seeker', )
+        read_only_fields = ('id', )
+    # TODO: Incompete, We will work on it later
