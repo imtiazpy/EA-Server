@@ -9,15 +9,18 @@ from assessment.models import Assessment, Result
 User = get_user_model()
 
 
+# This class is a serializer for listing Assessment
 class AssessmentListSerializer(ModelSerializer):
-    """Serializer for Listing Assessment"""
-
     class Meta:
         model = Assessment
         fields = ('id', 'title', 'type', 'duration', 'created_by', )
         read_only_fields = ('id', )
     
 
+# The AssessmentSerializer class is a subclass of ModelSerializer. It has a Meta class which specifies
+# the model to be used for serialization and the fields to be serialized. The read_only_fields
+# attribute specifies the fields that can only be read and not written to. The validate_created_by
+# method validates the created_by field value
 class AssessmentSerializer(ModelSerializer):
     """Serializer for Assessment Create, Detail, update view"""
 
@@ -37,7 +40,6 @@ class AssessmentSerializer(ModelSerializer):
 
 class ResultSerializer(ModelSerializer):
     """Serializer to list, create Result"""
-
     class Meta:
         model = Result
         fields = ('id', 'job_seeker', 'assessment', 'marks', 'date' )

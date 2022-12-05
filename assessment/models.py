@@ -1,9 +1,6 @@
-from email.policy import default
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
-
-from jobseekers.models.profile import JobSeekersProfile
 
 User = get_user_model()
 
@@ -31,7 +28,6 @@ class Assessment(models.Model):
         help_text=_("Title of your Assessment")
     )
     duration = models.DurationField(_("Duration"), null=True, blank=True)
-    # for the admin
     is_public = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assessments')
@@ -48,6 +44,7 @@ class QuestionTopic(models.Model):
         return self.title
 
 
+# The Question class is an abstract class that defines the content and topic of a question
 class Question(models.Model):
     """Model definition for Question"""
 
@@ -68,6 +65,7 @@ class Question(models.Model):
         abstract = True
 
 
+# The Result class is a model that stores the marks obtained by a job seeker in an assessment
 class Result(models.Model):
     """Model definition of Result"""
 
