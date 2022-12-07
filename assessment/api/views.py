@@ -3,9 +3,11 @@ from rest_framework.generics import (
     ListCreateAPIView,
     ListAPIView,
     CreateAPIView,
+    RetrieveAPIView,
     RetrieveUpdateDestroyAPIView,
 )
 from assessment.api.serializers import (
+    PublicAssessmentSerializer,
     AssessmentListSerializer, 
     AssessmentSerializer,
     ResultSerializer
@@ -15,22 +17,30 @@ from assessment.models import Assessment, Result
 
 User = get_user_model()
 
+# ===================Public Assessments====================
+class PublicAssessmentListAPIView(ListAPIView):
+    """
+    Listing Public Assessments. 
+    Both the Employer and job seekers can view the public assessments
+    """
+    serializer_class = PublicAssessmentSerializer
+    queryset = Assessment.objects.filter(is_public=True)
 
 
-class AssessmentPublicListAPIView(ListAPIView):
-    """Listing Public Assessments"""
-    
-    serializer_class = AssessmentListSerializer
+class PublicAssessmentRetrieveAPIView(RetrieveAPIView):
+    """Detail view of Public assessment"""
+    serializer_class = PublicAssessmentSerializer
+    lookup_field = 'id'
+    queryset = Assessment.objects.filter(is_public=True)
 
-    def get_queryset(self):
-        if self.request.user.type == 'JOB_SEEKER':
-            return Assessment.objects.filter(is_public=True)
+# =================End Public Assessment===================
 
+
+# ====================Private Assessment================
 class AssessmentCreateAPIView(CreateAPIView):
     """
     View for Creating Assessment. Only The Employer can create Assessment.
     """
-
     # The permission class checks whether the user is of type EMPLOYER or not
     permission_classes = [AssessmentWritePermission]
 
@@ -57,7 +67,7 @@ class AssessmentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return Assessment.objects.filter(created_by=self.request.user)
 
-
+# ===================End Private Assessment==================
 
 class ResultListCreateAPIView(ListCreateAPIView):
     """View for Listing and creating Results"""
