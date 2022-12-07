@@ -8,6 +8,17 @@ from assessment.models import Assessment, Result
 
 User = get_user_model()
 
+# =====================Public Assessment serializers==================
+
+class PublicAssessmentSerializer(ModelSerializer):
+    class Meta:
+        model = Assessment
+        fields = ('id', 'title', 'type', 'duration', )
+        read_only_fields = ('id', )
+
+
+# ===============End Public Assessment serializers=====================
+
 
 # This class is a serializer for listing Assessment
 class AssessmentListSerializer(ModelSerializer):
