@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 
 from assessment.models import Assessment, Result
+from mcq.api.serializers import MultipleChoiceQuestionSerializer
 
 
 User = get_user_model()
@@ -15,6 +16,17 @@ class PublicAssessmentSerializer(ModelSerializer):
         model = Assessment
         fields = ('id', 'title', 'type', 'duration', )
         read_only_fields = ('id', )
+
+
+
+class PublicAssessmentDetailSerializer(ModelSerializer):
+
+    mc_questions = MultipleChoiceQuestionSerializer(many=True)
+    class Meta:
+        model = Assessment
+        fields = ('id', 'title', 'type', 'duration', 'mc_questions', )
+        read_only_fields = ('id', )
+
 
 
 # ===============End Public Assessment serializers=====================

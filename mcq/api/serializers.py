@@ -2,10 +2,15 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
 from assessment.models import Assessment
-from mcq.models import MCQuestion
+from mcq.models import MCQuestion, Choice
 
 
 
+class ChoiceSerializer(ModelSerializer):
+    class Meta:
+        model = Choice
+        fields = ('id', 'question', 'content', 'is_correct', )
+        read_only_fields = ('id', )
 
 class MultipleChoiceQuestionListSerializer(ModelSerializer):
     """MCQuestion Listing serializer"""
@@ -19,9 +24,11 @@ class MultipleChoiceQuestionListSerializer(ModelSerializer):
 class MultipleChoiceQuestionSerializer(ModelSerializer):
     """MCQ Detail, Update, Destroy"""
 
+    choices = ChoiceSerializer(many=True)
+
     class Meta:
         model = MCQuestion
-        fields = ('id', 'content', 'topic', 'assessment', )
+        fields = ('id', 'content', 'topic', 'assessment', 'choices', )
         read_only_fields = ('id', )
 
     def validate_assessment(self, value):

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from rest_framework.response import Response
 from rest_framework.generics import (
     ListCreateAPIView,
     ListAPIView,
@@ -8,12 +9,16 @@ from rest_framework.generics import (
 )
 from assessment.api.serializers import (
     PublicAssessmentSerializer,
+    PublicAssessmentDetailSerializer,
     AssessmentListSerializer, 
     AssessmentSerializer,
     ResultSerializer
 )
 from assessment.api.custom_permissions import AssessmentWritePermission
 from assessment.models import Assessment, Result
+
+from mcq.api.serializers import MultipleChoiceQuestionSerializer
+from mcq.models import MCQuestion
 
 User = get_user_model()
 
@@ -28,10 +33,18 @@ class PublicAssessmentListAPIView(ListAPIView):
 
 
 class PublicAssessmentRetrieveAPIView(RetrieveAPIView):
-    """Detail view of Public assessment"""
-    serializer_class = PublicAssessmentSerializer
+
+    serializer_class = PublicAssessmentDetailSerializer
+    """
+        TODO:override the retrieve method, query each question type based on the type of assessment. 
+    """
     lookup_field = 'id'
-    queryset = Assessment.objects.filter(is_public=True)
+
+    def get_queryset(self):
+        assessment = Assessment.objects.filter(id = self.kwargs['id'], is_public=True)
+        return assessment
+
+
 
 # =================End Public Assessment===================
 
