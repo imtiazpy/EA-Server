@@ -21,10 +21,10 @@ class PublicAssessmentSerializer(ModelSerializer):
 
 class PublicAssessmentDetailSerializer(ModelSerializer):
 
-    mcq = MultipleChoiceQuestionSerializer(source='mc_questions', many=True)
+    mc_questions = MultipleChoiceQuestionSerializer(many=True)
     class Meta:
         model = Assessment
-        fields = ('id', 'title', 'type', 'duration', 'mcq', )
+        fields = ('id', 'title', 'type', 'duration', 'mc_questions', )
         read_only_fields = ('id', )
 
 
