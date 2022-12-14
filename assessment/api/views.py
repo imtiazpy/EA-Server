@@ -36,12 +36,13 @@ class PublicAssessmentRetrieveAPIView(RetrieveAPIView):
 
     serializer_class = PublicAssessmentDetailSerializer
     """
-        TODO:override the retrieve method, query each question type based on the type of assessment. 
+        TODO:override the retrieve method, query only the relevant type of question  based on the type of assessment. 
+        or override the get_serializer_class method, have separate serializer for assessment with each type of question, then use the matching one with the assessment type. 
     """
-    lookup_field = 'id'
+    lookup_field = 'slug'
 
     def get_queryset(self):
-        assessment = Assessment.objects.filter(id = self.kwargs['id'], is_public=True)
+        assessment = Assessment.objects.filter(slug = self.kwargs['slug'], is_public=True)
         return assessment
 
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
+from django.utils.crypto import get_random_string
 
 User = get_user_model()
 
@@ -20,6 +21,7 @@ class Assessment(models.Model):
         choices=AssessmentTypes.choices, 
         blank=False
     )
+    slug = models.SlugField(_('Slug'), max_length=6, blank=True, null=True)
     title = models.CharField(
         _("Title"), 
         max_length=100, 
@@ -31,6 +33,20 @@ class Assessment(models.Model):
     is_public = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assessments')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = get_random_string(6)
+            duplicate_slug = True
+            while duplicate_slug:
+                other_obj_with_same_slug = type(self).objects.filter(slug=self.slug)
+                if len(other_obj_with_same_slug) > 0:
+                    self.slug = get_random_string(6)
+                else:
+                    duplicate_slug = False
+            super(Assessment, self).save(*args, **kwargs)
+
+            
 
     def __str__(self):
         return f'Assessment-{self.id}-{self.title}'
