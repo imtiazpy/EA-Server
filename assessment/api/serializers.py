@@ -14,8 +14,8 @@ User = get_user_model()
 class PublicAssessmentSerializer(ModelSerializer):
     class Meta:
         model = Assessment
-        fields = ('id', 'title', 'type', 'duration', )
-        read_only_fields = ('id', )
+        fields = ('id', 'title', 'type', 'duration', 'slug', )
+        read_only_fields = ('id', 'slug', )
 
 
 
@@ -24,8 +24,8 @@ class PublicAssessmentDetailSerializer(ModelSerializer):
     mc_questions = MultipleChoiceQuestionSerializer(many=True)
     class Meta:
         model = Assessment
-        fields = ('id', 'title', 'type', 'duration', 'mc_questions', )
-        read_only_fields = ('id', )
+        fields = ('id', 'title', 'type', 'duration', 'slug', 'mc_questions', )
+        read_only_fields = ('id', 'slug', )
 
 
 
