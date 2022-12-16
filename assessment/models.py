@@ -44,7 +44,7 @@ class Assessment(models.Model):
                     self.slug = get_random_string(6)
                 else:
                     duplicate_slug = False
-            super(Assessment, self).save(*args, **kwargs)
+        super(Assessment, self).save(*args, **kwargs)
 
             
 
