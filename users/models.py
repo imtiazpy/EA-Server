@@ -4,6 +4,15 @@ from django.utils.translation import gettext as _
 
 class CustomBaseUserManager(BaseUserManager):
     def create_user(self, email, name, type, password=None):
+        """
+        It creates a user with the given email, name, type, and password
+        
+        :param email: The email address of the user
+        :param name: The name of the model
+        :param type: This is the type of user. It can be either a EMPLOYER or a JOB_SEEKER
+        :param password: The password to use for this user
+        :return: The user object
+        """
         if not email:
             raise ValueError('User must have an email address')
         email = self.normalize_email(email)
