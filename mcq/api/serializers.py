@@ -32,6 +32,12 @@ class MultipleChoiceQuestionSerializer(ModelSerializer):
         read_only_fields = ('id', )
 
     def validate_assessment(self, value):
+        """
+        If the assessment is not created by the user, raise a validation error
+        
+        :param value: The value that is being validated
+        :return: The value of the assessment
+        """
         assessment = Assessment.objects.get(id=value.id)
         user = self.context['request'].user
 

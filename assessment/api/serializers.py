@@ -32,28 +32,27 @@ class PublicAssessmentDetailSerializer(ModelSerializer):
 # ===============End Public Assessment serializers=====================
 
 
-# This class is a serializer for listing Assessment
 class AssessmentListSerializer(ModelSerializer):
     class Meta:
         model = Assessment
         fields = ('id', 'title', 'type', 'duration', 'created_by', )
         read_only_fields = ('id', )
     
-
-# The AssessmentSerializer class is a subclass of ModelSerializer. It has a Meta class which specifies
-# the model to be used for serialization and the fields to be serialized. The read_only_fields
-# attribute specifies the fields that can only be read and not written to. The validate_created_by
-# method validates the created_by field value
 class AssessmentSerializer(ModelSerializer):
     """Serializer for Assessment Create, Detail, update view"""
-
     class Meta:
         model = Assessment
         fields = ('id', 'type', 'title', 'duration', 'is_published', 'created_by', )
         read_only_fields = ('id', )
 
     def validate_created_by(self, value):
-        """Validating created_by field value whether it's appropriate or not"""
+        """
+        It validates the value of the created_by field, and if the value is not the same as the user who
+        is making the request, it raises a serializer validation error
+        
+        :param value: The value of the field being validated
+        :return: The value of the field being validated.
+        """
         created_by = User.objects.get(id=value.id)
 
         if created_by != self.context['request'].user:
@@ -69,8 +68,12 @@ class ResultSerializer(ModelSerializer):
         read_only_fields = ('id', )
 
     def validate_job_seeker(self, value):
-        """validating appropriate job_seeker"""
-
+        """
+        It checks if the job seeker is the same as the user who is logged in
+        
+        :param value: The value that is being validated
+        :return: The validated value is being returned.
+        """
         job_seeker = User.objects.get(id=value.id)
 
         if job_seeker != self.context['request'].user:
@@ -78,8 +81,12 @@ class ResultSerializer(ModelSerializer):
         return value
 
     def validate_assessment(self, value):
-        """Validating the assessment whether its current users or not"""
-
+        """
+        It validates the assessment whether its current users or not
+        
+        :param value: The value that is being validated
+        :return: The assessment object is being returned.
+        """
         assessment = Assessment.objects.get(id=value.id)
         user = self.context['request'].user
 
