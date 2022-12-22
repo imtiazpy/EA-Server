@@ -31,6 +31,7 @@ class EmployerProfileSerializer(serializers.ModelSerializer):
 
 class EmployerUserSerializer(serializers.ModelSerializer):
     """Retrieve, Update, Delete Employer Profile"""
+
     employer_profile = EmployerProfileSerializer(many=False)
 
     class Meta:
@@ -40,7 +41,13 @@ class EmployerUserSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def update(self, instance, validated_data):
-        """For updating User and Profile info"""
+        """
+        It updates the User model with the validated_data and then updates the EmployerProfile model with the employer_profile data
+        
+        :param instance: The current instance of the object that the serializer is bound to
+        :param validated_data: The validated data from the serializer
+        :return: The new instance of the model.
+        """
         ModelClass = self.Meta.model
         employer_profile = validated_data.pop('employer_profile', {})
         # saving the User info. EmployerProfile info extracted with pop
@@ -59,4 +66,4 @@ class InvitedCandidateSerializer(serializers.ModelSerializer):
         model = InvitedCandidate
         fields = ('id', 'employer', 'job_seeker', )
         read_only_fields = ('id', )
-    # TODO: Incompete, We will work on it later
+    # TODO: Incomplete, We will work on it later

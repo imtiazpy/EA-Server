@@ -14,17 +14,28 @@ class MCQuestion(Question):
     )
 
     def check_if_correct(self, guess):
+        """
+        If the choice is correct, return True, otherwise return False
+        
+        :param guess: the id of the choice that the user selected
+        """
         choice = Choice.objects.get(id=guess)
-
         if choice.is_correct is True:
             return True
         return False
 
-    
     def get_choices(self):
+        """
+        It returns a QuerySet of all the choices associated with this question
+        :return: A list of Choice objects associated with the Question.
+        """
         return Choice.objects.filter(question=self)
 
     def get_choices_list(self):
+        """
+        It returns a list of tuples, where each tuple contains the id and content of a choice
+        :return: A list of tuples.
+        """
         return [(choice.id, choice.content) for choice in Choice.objects.filter(question=self)]
     
     class Meta:

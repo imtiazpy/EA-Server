@@ -26,11 +26,13 @@ SECRET_KEY = 'django-insecure-9t!421ok!5avngn1pu!rv%l96^v57=vzx_jdgfyd641(iso**$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Allowing all the hosts to access the backend.
 ALLOWED_HOSTS = ['*']
 
 # To give the permission to access the backend to the client application
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
+# This is for allowing the client application to access the backend.
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8000',
@@ -38,7 +40,6 @@ CORS_ORIGIN_WHITELIST = (
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

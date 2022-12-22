@@ -17,6 +17,10 @@ class EmployerUserAPIView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
 
     def get_object(self):
+        """
+        It returns the user object if the user is active and the type is 'EMPLOYER'
+        :return: The user object is being returned.
+        """
         return get_object_or_404(User, id=self.request.user.id, is_active=True, type='EMPLOYER')
 
 

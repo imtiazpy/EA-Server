@@ -34,7 +34,6 @@ class MultipleChoiceQuestionSerializer(ModelSerializer):
     def validate_assessment(self, value):
         """
         If the assessment is not created by the user, raise a validation error
-        
         :param value: The value that is being validated
         :return: The value of the assessment
         """

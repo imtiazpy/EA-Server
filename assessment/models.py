@@ -35,6 +35,9 @@ class Assessment(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assessments')
 
     def save(self, *args, **kwargs):
+        """
+        If the object doesn't have a slug, generate a random string and check if any other objects have the same slug. If they do, generate a new random string and check again. If they don't, save the object
+        """
         if not self.slug:
             self.slug = get_random_string(6)
             duplicate_slug = True
@@ -45,8 +48,6 @@ class Assessment(models.Model):
                 else:
                     duplicate_slug = False
         super(Assessment, self).save(*args, **kwargs)
-
-            
 
     def __str__(self):
         return f'Assessment-{self.id}-{self.title}'
@@ -81,9 +82,10 @@ class Question(models.Model):
         abstract = True
 
 
-# The Result class is a model that stores the marks obtained by a job seeker in an assessment
 class Result(models.Model):
-    """Model definition of Result"""
+    """
+    The Result class is a model that stores the marks obtained by a job seeker in an assessment
+    """
 
     job_seeker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='results')
     assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE)
