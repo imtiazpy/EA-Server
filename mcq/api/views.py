@@ -20,6 +20,10 @@ class MultipleChoiceQuestionListCreateAPIView(ListCreateAPIView):
         return MCQuestion.objects.filter(assessment__created_by = self.request.user)
 
     def get_serializer_class(self):
+        """
+        If the request method is POST, return the MultipleChoiceQuestionSerializer, otherwise return the MultipleChoiceQuestionListSerializer
+        :return: The MultipleChoiceQuestionSerializer is being returned.
+        """
         if self.request.method == 'POST':
             return MultipleChoiceQuestionSerializer
         return MultipleChoiceQuestionListSerializer

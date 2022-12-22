@@ -36,7 +36,14 @@ class JobSeekerUserSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def update(self, instance, validated_data):
-        """Update User and Profile info"""
+        """
+        We are updating the User model with the validated_data, and then we are updating the
+        JobSeekersProfile model with the job_seeker_profile data
+        
+        :param instance: The instance of the model that is being updated
+        :param validated_data: This is the data that has been validated by the serializer
+        :return: The new instance of the model class
+        """
         ModelClass = self.Meta.model
         job_seeker_profile = validated_data.pop('job_seeker_profile', {})
         # saving the User info. job seeker profile is extracted with pop

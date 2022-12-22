@@ -55,6 +55,7 @@ class AssessmentCreateAPIView(CreateAPIView):
     """
     View for Creating Assessment. Only The Employer can create Assessment.
     """
+
     # The permission class checks whether the user is of type EMPLOYER or not
     permission_classes = [AssessmentWritePermission]
 
@@ -79,6 +80,10 @@ class AssessmentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
+        """
+        Return all the assessments created by the user who is currently logged in.
+        :return: The Assessment objects that were created by the user.
+        """
         return Assessment.objects.filter(created_by=self.request.user)
 
 # ===================End Private Assessment==================

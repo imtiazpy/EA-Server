@@ -24,6 +24,15 @@ class UserActivationView(generics.GenericAPIView):
     permission_classes = [AllowAny]
 
     def get(self, request, uid, token, formant=None):
+        """
+        It takes the uid and token from the url, and sends a post request to the activation endpoint with the uid and token as the payload
+        
+        :param request: The request object
+        :param uid: The user's id
+        :param token: The token that was sent to the user's email
+        :param formant: This is the format of the response. It can be either json or html
+        :return: The response is a redirect to the react frontend.
+        """
         payload = {'uid': uid, 'token': token}
         url = 'http://127.0.0.1:8000/api/v1/auth/users/activation/'
 
