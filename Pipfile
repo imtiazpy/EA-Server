@@ -7,15 +7,14 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
-djoser = "*"
-psycopg2 = "*"
 psycopg2-binary = "*"
 pillow = "*"
 django-cors-headers = "*"
 drf-yasg = "*"
 coreapi = "*"
+djoser = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.11"

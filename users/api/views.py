@@ -37,5 +37,5 @@ class UserActivationView(generics.GenericAPIView):
         url = 'http://127.0.0.1:8000/api/v1/auth/users/activation/'
 
         response = requests.post(url, data=payload)
-        
+        # redirecting to frontend after is successfull
         return redirect('http://localhost:3000/activation-success')
